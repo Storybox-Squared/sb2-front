@@ -8,14 +8,17 @@
   "dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
+    "cookie-session": "^2.0.0-alpha.2",
+    "cors": "latest",
     "debug": "~2.2.0",
+    "dotenv": "latest",
     "express": "~4.14.0",
+    "express-session": "latest",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
     "passport": "latest",
-    "express-session": "latest",
-    "dotenv": "latest",
-    "cors": "latest"
+    "serve-favicon": "~2.3.0",
+    "connect-ensure-login": "latest",
+    "passport-auth0": "latest"
   }
 }

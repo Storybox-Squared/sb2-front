@@ -27,6 +27,7 @@ router.get('/logout', function (req, res) {
 
 // Perform the final stage of authentication and redirect
 router.get('/callback', passport.authenticate('auth0', {failureRedirect: '/login'}), function (req, res) {
+    req.session.token = "test token";
     res.redirect(req.session.returnTo || '/home');
 });
 
