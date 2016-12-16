@@ -3,3 +3,5 @@ extends layout
 block content
     script(src="/javascripts/assets.js")
     include navbar
+    ul
+        li(ng-repeat="asset in assets") {{ asset }}
