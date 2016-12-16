@@ -1,8 +1,19 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.navbar ul li {
+    display: inline;
+    vertical-align: middle;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    padding: 8px;
+}
+
+.navbar a:hover {
+    background-color: #D1D1D1;
 }
