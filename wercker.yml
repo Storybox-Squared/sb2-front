@@ -10,10 +10,14 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
-deploy:
-  steps:
     - internal/docker-push:
+        entrypoint: bin/npm
+        cmd: 0.0.0.0 80
+        working-dir: $WERCKER_ROOT
+        tag: $WERCKER_GIT_COMMIT
+        ports: "80"
         username: _json_key
         password: $GCR_JSON_KEY_FILE
         repository: $GCR_DOCKER_REPO
         registry: $GCR_REGISTRY
+
