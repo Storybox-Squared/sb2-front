@@ -8,10 +8,10 @@ build:
             echo "node version $(node -v) running"
             echo "npm version $(npm -v) running"
         name: "echo nodejs information"
-deploy:
-  steps:
-    - internal/docker-push:
-        password: $GCR_JSON_KEY_FILE
-        registry: "https://gcr.io"
-        repository: "gcr.io/ivory-bonus-151910/sb2-front:latest"
-        username: _json_key
+#deploy:
+#  steps:
+#    - internal/docker-push:
+#        password: $GCR_JSON_KEY_FILE
+#        registry: "https://gcr.io"
+#        repository: "gcr.io/ivory-bonus-151910/sb2-front:latest"
+#        username: _json_key
