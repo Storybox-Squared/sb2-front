@@ -1,0 +1,6 @@
+deploy:
+    - internal/docker-push:
+        username: _json_key
+        password: $GCR_JSON_KEY_FILE
+        repository: gcr.io/sb2-cloud/sb2-front:latest
+        registry: https://gcr.io
