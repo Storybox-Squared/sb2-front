@@ -39,5 +39,5 @@ deploy:
     - internal/docker-push:
         username: _json_key
         password: $GCR_JSON_KEY_FILE
-        repository: eu.gcr.io /ivory-bonus-151910/sb2-front
+        repository: eu.gcr.io/ivory-bonus-151910/sb2-front
         registry: https://eu.gcr.io
