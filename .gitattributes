@@ -1,2 +1,1 @@
-build.yml merge=ours
-deploy.yml merge=ours
+wercker.yml merge=ours
