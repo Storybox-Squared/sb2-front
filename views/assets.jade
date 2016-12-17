@@ -3,5 +3,14 @@ extends layout
 block content
     script(src="/javascripts/assets.js")
     include navbar
-    ul
-        li(ng-repeat="asset in assets") {{ asset }}
+
+    hr
+
+    div
+        table(class="table is-striped")
+            thead
+                tr
+                    th(ng-repeat="key in keys") {{ key }}
+            tbody
+                tr(ng-repeat="asset in assets" ng-click="viewAsset(asset._id)")
+                    td(ng-repeat="attribute in asset") {{ attribute }}

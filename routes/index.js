@@ -9,11 +9,11 @@ var env = {
     AUTH0_CALLBACK_URL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
 };
 
-/* GET home page. */
-// Get the user profile
+// redirect to home page
 router.get('/', ensureLoggedIn, function (req, res, next) {
     res.redirect('home');
 });
+
 
 router.get('/login', function (req, res) {
     return res.render('login', {title: 'SB2 Assets', env: env, login: true});
@@ -27,7 +27,6 @@ router.get('/logout', function (req, res) {
 
 // Perform the final stage of authentication and redirect
 router.get('/callback', passport.authenticate('auth0', {failureRedirect: '/login'}), function (req, res) {
-    req.session.token = "test token";
     res.redirect(req.session.returnTo || '/home');
 });
 
