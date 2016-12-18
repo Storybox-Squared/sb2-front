@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    script(src="/javascripts/asset.js")
+    include navbar
+
+    hr
+
+    div(class="container")
+        form(id="asset" ng-submit="submit()")
+            div(class="control is-horizontal" ng-repeat="(key, value) in asset")
+                div(class="control-label")
+                    label(class="label") {{ key }}
+                div(class="control")
+                    input(ng-model="asset[key]" class="input" type="text" title="{{key}}" id="{{key}}" name="{{key}}" value="{{ value }}" autocomplete="off" ng-disabled="key == '_id'")
+            input(type="submit" value="{{ submitButton }}")
