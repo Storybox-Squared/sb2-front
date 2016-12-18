@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv');
 var cors = require('cors');
+var MongoStore = require('connect-mongo')(session);
 
 dotenv.load();
 
@@ -57,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(session({
     secret: 'secret',
+    store: new MongoStore({url: 'mongodb://130.211.68.184,104.155.97.156,146.148.19.206:27017/sb2-assets-sessions-dev?replicaSet=my_replica_set'}),
     saveUninitialized: true,
     resave: true
 }));
