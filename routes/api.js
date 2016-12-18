@@ -1,21 +1,8 @@
 var express = require('express');
-var http = require('http');
+var request = require('request');
 var jwt = require('jsonwebtoken');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
-
-// create options for http request to sb2-x-api
-function buildOptions(route, method, token) {
-    return {
-        host: 'localhost',
-        port: 3001,
-        path: route,
-        method: method,
-        headers: {
-            'x-access-token': token
-        }
-    }
-}
 
 // gets the time until session expiry
 function getExpiresIn(datetime) {
@@ -35,26 +22,15 @@ router.get('/assets', ensureLoggedIn, function (req, res, next) {
         if (err) {
             return res.json({success: false});
         } else {
-            var options = buildOptions('/assets', 'GET', token);
-
-            // make the request to the sb2-x-api server
-            var request = http.request(options, function (response) {
-                var str = "";
-                response.on('data', function (data) {
-                    str += data;
-                });
-                response.on('end', function () {
-                    return res.json(JSON.parse(str));
-                })
+            request('http://localhost:3001/assets?token=' + token, function (err, response, body) {
+                return res.json(JSON.parse(body));
             });
-
-            request.end();
         }
     });
 });
 
 // post asset
-router.get('/assets', ensureLoggedIn, function (req, res, next) {
+router.post('/assets', ensureLoggedIn, function (req, res, next) {
 
     // gets the session from the request
     var session = req.session;
@@ -65,20 +41,35 @@ router.get('/assets', ensureLoggedIn, function (req, res, next) {
         if (err) {
             return res.json({success: false});
         } else {
-            var options = buildOptions('/assets', 'GET', token);
-
-            // make the request to the sb2-x-api server
-            var request = http.request(options, function (response) {
-                var str = "";
-                response.on('data', function (data) {
-                    str += data;
-                });
-                response.on('end', function () {
-                    return res.json(JSON.parse(str));
-                })
+            delete req.body._id;
+            request.post({
+                url: 'http://localhost:3001/assets?token=' + token,
+                form: req.body
+            }, function (err, response, body) {
+                return res.json(JSON.parse(body));
             });
+        }
+    });
+});
 
-            request.end();
+// put asset
+router.put('/assets', ensureLoggedIn, function (req, res, next) {
+
+    // gets the session from the request
+    var session = req.session;
+
+    // creates a json web token for authentication on sb2-x-api servers
+    jwt.sign(session, 'secret', {expiresIn: getExpiresIn(session.cookie._expires)}, function (err, token) {
+
+        if (err) {
+            return res.json({success: false});
+        } else {
+            request.put({
+                url: 'http://localhost:3001/assets?token=' + token,
+                form: req.body
+            }, function (err, response, body) {
+                return res.json(JSON.parse(body));
+            });
         }
     });
 });
@@ -95,20 +86,9 @@ router.get('/assets/:id', ensureLoggedIn, function (req, res, next) {
         if (err) {
             return res.json({success: false});
         } else {
-            var options = buildOptions('/assets/' + req.params.id, 'GET', token);
-
-            // make the request to the sb2-x-api server
-            var request = http.request(options, function (response) {
-                var str = "";
-                response.on('data', function (data) {
-                    str += data;
-                });
-                response.on('end', function () {
-                    return res.json(JSON.parse(str));
-                })
+            request('http://localhost:3001/assets/' + req.params.id + '?token=' + token, function (err, response, body) {
+                return res.json(JSON.parse(body));
             });
-
-            request.end();
         }
     });
 });
