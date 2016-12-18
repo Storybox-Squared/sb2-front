@@ -22,7 +22,7 @@ router.get('/assets', ensureLoggedIn, function (req, res, next) {
         if (err) {
             return res.json({success: false});
         } else {
-            request('http://localhost:3001/assets?token=' + token, function (err, response, body) {
+            request(process.env.ASSETS_API_SERVER + '/assets?token=' + token, function (err, response, body) {
                 return res.json(JSON.parse(body));
             });
         }
@@ -43,7 +43,7 @@ router.post('/assets', ensureLoggedIn, function (req, res, next) {
         } else {
             delete req.body._id;
             request.post({
-                url: 'http://localhost:3001/assets?token=' + token,
+                url: process.env.ASSETS_API_SERVER + '/assets?token=' + token,
                 form: req.body
             }, function (err, response, body) {
                 return res.json(JSON.parse(body));
@@ -65,7 +65,7 @@ router.put('/assets', ensureLoggedIn, function (req, res, next) {
             return res.json({success: false});
         } else {
             request.put({
-                url: 'http://localhost:3001/assets?token=' + token,
+                url: process.env.ASSETS_API_SERVER + '/assets?token=' + token,
                 form: req.body
             }, function (err, response, body) {
                 return res.json(JSON.parse(body));
@@ -86,7 +86,7 @@ router.get('/assets/:id', ensureLoggedIn, function (req, res, next) {
         if (err) {
             return res.json({success: false});
         } else {
-            request('http://localhost:3001/assets/' + req.params.id + '?token=' + token, function (err, response, body) {
+            request(process.env.ASSETS_API_SERVER + '/assets/' + req.params.id + '?token=' + token, function (err, response, body) {
                 return res.json(JSON.parse(body));
             });
         }
